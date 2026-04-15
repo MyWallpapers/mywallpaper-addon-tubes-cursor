@@ -1,6 +1,6 @@
 {
   "name": "Tubes Cursor",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "entry": "index.js",
   "description": "Interactive 3D tubes that follow the cursor with colorful lights and glow effect",
   "author": "MyWallpaper Community",
@@ -13,178 +13,236 @@
   "settings": {
     "tubesSection": {
       "type": "section",
-      "label": "🎨 Tubes"
+      "content": {
+        "label": "🎨 Tubes"
+      }
     },
     "tubeCount": {
       "type": "range",
-      "label": "Number of Tubes",
-      "default": 16,
-      "min": 1,
-      "max": 32,
-      "step": 1
+      "content": {
+        "label": "Number of Tubes",
+        "default": 16,
+        "min": 1,
+        "max": 32,
+        "step": 1
+      }
     },
     "tubeRadius": {
       "type": "range",
-      "label": "Tube Thickness",
-      "description": "Radius of all tubes",
-      "default": 0.03,
-      "min": 0.005,
-      "max": 0.15,
-      "step": 0.005
+      "content": {
+        "label": "Tube Thickness",
+        "description": "Radius of all tubes",
+        "default": 0.03,
+        "min": 0.005,
+        "max": 0.15,
+        "step": 0.005
+      }
     },
     "tubeLength": {
       "type": "range",
-      "label": "Tube Length",
-      "description": "Number of segments (longer = more trail)",
-      "default": 64,
-      "min": 1,
-      "max": 256,
-      "step": 1
+      "content": {
+        "label": "Tube Length",
+        "description": "Number of segments (longer = more trail)",
+        "default": 64,
+        "min": 1,
+        "max": 256,
+        "step": 1
+      }
     },
     "materialSection": {
       "type": "section",
-      "label": "✨ Material"
+      "content": {
+        "label": "✨ Material"
+      }
     },
     "metalness": {
       "type": "range",
-      "label": "Metalness",
-      "default": 1,
-      "min": 0,
-      "max": 1,
-      "step": 0.05
+      "content": {
+        "label": "Metalness",
+        "default": 1,
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
     },
     "roughness": {
       "type": "range",
-      "label": "Roughness",
-      "default": 0.25,
-      "min": 0,
-      "max": 1,
-      "step": 0.05
+      "content": {
+        "label": "Roughness",
+        "default": 0.25,
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
     },
     "animationSection": {
       "type": "section",
-      "label": "🌊 Animation"
+      "content": {
+        "label": "🌊 Animation"
+      }
     },
     "smoothness": {
       "type": "range",
-      "label": "Smoothness",
-      "description": "How quickly tubes follow the cursor",
-      "default": 0.85,
-      "min": 0.05,
-      "max": 1,
-      "step": 0.05
+      "content": {
+        "label": "Smoothness",
+        "description": "How quickly tubes follow the cursor",
+        "default": 0.85,
+        "min": 0.05,
+        "max": 1,
+        "step": 0.05
+      }
     },
     "noise": {
       "type": "range",
-      "label": "Noise",
-      "description": "Organic movement intensity",
-      "default": 0.05,
-      "min": 0,
-      "max": 0.3,
-      "step": 0.01
+      "content": {
+        "label": "Noise",
+        "description": "Organic movement intensity",
+        "default": 0.05,
+        "min": 0,
+        "max": 0.3,
+        "step": 0.01
+      }
     },
     "tubeColorsSection": {
       "type": "section",
-      "label": "🎨 Tube Colors (Gradient)"
+      "content": {
+        "label": "🎨 Tube Colors (Gradient)"
+      }
     },
     "tubeColor1": {
       "type": "color",
-      "label": "Color 1",
-      "default": "#f967fb"
+      "content": {
+        "label": "Color 1",
+        "default": "#f967fb"
+      }
     },
     "tubeColor2": {
       "type": "color",
-      "label": "Color 2",
-      "default": "#ff6b6b"
+      "content": {
+        "label": "Color 2",
+        "default": "#ff6b6b"
+      }
     },
     "tubeColor3": {
       "type": "color",
-      "label": "Color 3",
-      "default": "#53bc28"
+      "content": {
+        "label": "Color 3",
+        "default": "#53bc28"
+      }
     },
     "randomizeTubeColors": {
       "type": "button",
-      "label": "Actions",
-      "buttonLabel": "🎲 Randomize Tube Colors"
+      "content": {
+        "label": "Actions",
+        "buttonLabel": "🎲 Randomize Tube Colors"
+      }
     },
     "lightColorsSection": {
       "type": "section",
-      "label": "💡 Lights"
+      "content": {
+        "label": "💡 Lights"
+      }
     },
     "lightIntensity": {
       "type": "range",
-      "label": "Light Intensity",
-      "default": 200,
-      "min": 0,
-      "max": 500,
-      "step": 10
+      "content": {
+        "label": "Light Intensity",
+        "default": 200,
+        "min": 0,
+        "max": 500,
+        "step": 10
+      }
     },
     "lightColor1": {
       "type": "color",
-      "label": "Light 1 (Bottom-Left)",
-      "default": "#83f36e"
+      "content": {
+        "label": "Light 1 (Bottom-Left)",
+        "default": "#83f36e"
+      }
     },
     "lightColor2": {
       "type": "color",
-      "label": "Light 2 (Top-Left)",
-      "default": "#fe8a2e"
+      "content": {
+        "label": "Light 2 (Top-Left)",
+        "default": "#fe8a2e"
+      }
     },
     "lightColor3": {
       "type": "color",
-      "label": "Light 3 (Bottom-Right)",
-      "default": "#ff008a"
+      "content": {
+        "label": "Light 3 (Bottom-Right)",
+        "default": "#ff008a"
+      }
     },
     "lightColor4": {
       "type": "color",
-      "label": "Light 4 (Top-Right)",
-      "default": "#60aed5"
+      "content": {
+        "label": "Light 4 (Top-Right)",
+        "default": "#60aed5"
+      }
     },
     "randomizeLightColors": {
       "type": "button",
-      "label": "Actions",
-      "buttonLabel": "🎲 Randomize Light Colors"
+      "content": {
+        "label": "Actions",
+        "buttonLabel": "🎲 Randomize Light Colors"
+      }
     },
     "bloomSection": {
       "type": "section",
-      "label": "🌟 Bloom Effect"
+      "content": {
+        "label": "🌟 Bloom Effect"
+      }
     },
     "bloomEnabled": {
       "type": "boolean",
-      "label": "Enable Bloom",
-      "default": true
+      "content": {
+        "label": "Enable Bloom",
+        "default": true
+      }
     },
     "bloomThreshold": {
       "type": "range",
-      "label": "Threshold",
-      "default": 0,
-      "min": 0,
-      "max": 1,
-      "step": 0.05
+      "content": {
+        "label": "Threshold",
+        "default": 0,
+        "min": 0,
+        "max": 1,
+        "step": 0.05
+      }
     },
     "bloomStrength": {
       "type": "range",
-      "label": "Strength",
-      "default": 0.7,
-      "min": 0,
-      "max": 10,
-      "step": 0.1
+      "content": {
+        "label": "Strength",
+        "default": 0.7,
+        "min": 0,
+        "max": 10,
+        "step": 0.1
+      }
     },
     "bloomRadius": {
       "type": "range",
-      "label": "Radius",
-      "default": 1.5,
-      "min": 0,
-      "max": 3,
-      "step": 0.1
+      "content": {
+        "label": "Radius",
+        "default": 1.5,
+        "min": 0,
+        "max": 3,
+        "step": 0.1
+      }
     },
     "actionsSection": {
       "type": "section",
-      "label": "⚡ Quick Actions"
+      "content": {
+        "label": "⚡ Quick Actions"
+      }
     },
     "randomizeAll": {
       "type": "button",
-      "label": "Randomize",
-      "buttonLabel": "🎲 Randomize All Colors"
+      "content": {
+        "label": "Randomize",
+        "buttonLabel": "🎲 Randomize All Colors"
+      }
     }
   },
   "defaultLayout": {
