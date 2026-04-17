@@ -253,5 +253,6 @@
   },
   "ui": {
     "pointerEvents": "none"
-  }
+  },
+  "repository": "https://github.com/MyWallpapers/mywallpaper-addon-tubes-cursor"
 }
