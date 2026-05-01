@@ -1,6 +1,6 @@
 {
   "name": "mywallpaper-addon-tubes-cursor",
-  "version": "4.2.2",
+  "version": "4.2.3",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,7 +12,7 @@
     "@mywallpaper/sdk-react": "file:../MyWallpaper/packages/sdk-react",
     "@mywallpaper/vite-plugin": "file:../MyWallpaper/packages/vite-plugin",
     "react": "^19.0.0",
-    "vite": "^6.0.0"
+    "vite": "^7.3.2"
   },
   "dependencies": {
     "three": "^0.182.0"

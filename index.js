@@ -1,11 +1,20 @@
-import { jsx as Tl } from "react/jsx-runtime";
-import { useRef as Ar, useEffect as Zt } from "react";
-import { useSettings as bl, useSettingsActions as Al } from "@mywallpaper/sdk-react";
-/**
- * @license
- * Copyright 2010-2025 Three.js Authors
- * SPDX-License-Identifier: MIT
- */
+const __MYWALLPAPER_WIDGET_RUNTIME_CONTRACT__ = "1";
+if (!__canvasRuntime) {
+      throw new Error('Canvas runtime globals are unavailable');
+    }
+if (!__canvasRuntime.react || !__canvasRuntime.reactJsxRuntime || !__canvasRuntime.sdkReact || !__canvasRuntime.sdkContracts || !__canvasRuntime.sdkPermissions) {
+      throw new Error('Canvas runtime globals are unavailable');
+    }
+const __canvasRuntimeReact = __canvasRuntime.react;
+const __canvasRuntimeJsxRuntime = __canvasRuntime.reactJsxRuntime;
+const __canvasRuntimeSdk = __canvasRuntime.sdkReact;
+const __canvasRuntimeSdkContracts = __canvasRuntime.sdkContracts;
+const __canvasRuntimeSdkPermissions = __canvasRuntime.sdkPermissions;
+const Tl = __canvasRuntimeJsxRuntime.jsx;
+const Ar = __canvasRuntimeReact.useRef;
+const Zt = __canvasRuntimeReact.useEffect;
+const bl = __canvasRuntimeSdk.useSettings;
+const Al = __canvasRuntimeSdk.useSettingsActions;
 const ra = "182", Cl = 0, Oa = 1, wl = 2, or = 1, Rl = 2, Si = 3, An = 0, wt = 1, fn = 2, en = 0, ni = 1, ls = 2, Ba = 3, za = 4, Pl = 5, Fn = 100, Dl = 101, Ll = 102, Ul = 103, Il = 104, Nl = 200, Fl = 201, Ol = 202, Bl = 203, cs = 204, us = 205, zl = 206, Vl = 207, Gl = 208, Hl = 209, kl = 210, Wl = 211, Xl = 212, ql = 213, Yl = 214, hs = 0, fs = 1, ds = 2, ri = 3, ps = 4, ms = 5, gs = 6, _s = 7, zo = 0, Kl = 1, Zl = 2, tn = 0, sa = 1, aa = 2, oa = 3, la = 4, ca = 5, ua = 6, ha = 7, Vo = 300, Vn = 301, si = 302, xs = 303, vs = 304, vr = 306, Ms = 1e3, dn = 1001, Ss = 1002, mt = 1003, Jl = 1004, zi = 1005, xt = 1006, Cr = 1007, Bn = 1008, Ft = 1009, Go = 1010, Ho = 1011, Ai = 1012, fa = 1013, rn = 1014, jt = 1015, Rt = 1016, da = 1017, pa = 1018, Ci = 1020, ko = 35902, Wo = 35899, Xo = 1021, qo = 1022, Xt = 1023, mn = 1026, zn = 1027, Yo = 1028, ma = 1029, ai = 1030, ga = 1031, _a = 1033, lr = 33776, cr = 33777, ur = 33778, hr = 33779, Es = 35840, ys = 35841, Ts = 35842, bs = 35843, As = 36196, Cs = 37492, ws = 37496, Rs = 37488, Ps = 37489, Ds = 37490, Ls = 37491, Us = 37808, Is = 37809, Ns = 37810, Fs = 37811, Os = 37812, Bs = 37813, zs = 37814, Vs = 37815, Gs = 37816, Hs = 37817, ks = 37818, Ws = 37819, Xs = 37820, qs = 37821, Ys = 36492, Ks = 36494, Zs = 36495, Js = 36283, $s = 36284, js = 36285, Qs = 36286, $l = 3200, Ko = 0, jl = 1, Tn = "", Vt = "srgb", oi = "srgb-linear", gr = "linear", je = "srgb", Hn = 7680, Va = 519, Ql = 512, ec = 513, tc = 514, xa = 515, nc = 516, ic = 517, va = 518, rc = 519, Ga = 35044, Ha = "300 es", Qt = 2e3, _r = 2001;
 function Zo(i) {
   for (let e = i.length - 1; e >= 0; --e)
@@ -10674,11 +10683,6 @@ typeof __THREE_DEVTOOLS__ < "u" && __THREE_DEVTOOLS__.dispatchEvent(new CustomEv
   revision: ra
 } }));
 typeof window < "u" && (window.__THREE__ ? Ie("WARNING: Multiple instances of Three.js being imported.") : window.__THREE__ = ra);
-/**
- * @license
- * Copyright 2010-2025 Three.js Authors
- * SPDX-License-Identifier: MIT
- */
 function hl() {
   let i = null, e = !1, t = null, n = null;
   function r(s, a) {
@@ -22051,12 +22055,10 @@ function _m() {
       lerp: o.smoothness ?? 0.5,
       noise: o.noise ?? 0.05
     }), () => {
-      var c;
-      (c = r.current) == null || c.dispose(), r.current = null;
+      r.current?.dispose(), r.current = null;
     };
   }, []), Zt(() => {
-    var a;
-    (a = r.current) == null || a.setTubeColors([
+    r.current?.setTubeColors([
       i.tubeColor1 || "#f967fb",
       i.tubeColor2 || "#ff6b6b",
       i.tubeColor3 || "#53bc28"
@@ -22070,27 +22072,22 @@ function _m() {
       i.lightColor4 || "#60aed5"
     ]), a.setLightIntensity(i.lightIntensity ?? 200));
   }, [i.lightColor1, i.lightColor2, i.lightColor3, i.lightColor4, i.lightIntensity]), Zt(() => {
-    var a;
-    (a = r.current) == null || a.setMaterial({ metalness: i.metalness ?? 1, roughness: i.roughness ?? 0.25 });
+    r.current?.setMaterial({ metalness: i.metalness ?? 1, roughness: i.roughness ?? 0.25 });
   }, [i.metalness, i.roughness]), Zt(() => {
     const a = r.current;
     a && (a.setLerp(i.smoothness ?? 0.85), a.setNoise(i.noise ?? 0.05));
   }, [i.smoothness, i.noise]), Zt(() => {
-    var a;
-    (a = r.current) == null || a.setBloomEnabled(i.bloomEnabled ?? !0);
+    r.current?.setBloomEnabled(i.bloomEnabled ?? !0);
   }, [i.bloomEnabled]), Zt(() => {
-    var a;
-    (a = r.current) == null || a.setBloomParams({
+    r.current?.setBloomParams({
       threshold: i.bloomThreshold ?? 0,
       strength: i.bloomStrength ?? 0.7,
       radius: i.bloomRadius ?? 1.5
     });
   }, [i.bloomThreshold, i.bloomStrength, i.bloomRadius]), Zt(() => {
-    var a;
-    (a = r.current) == null || a.setTubeCount(i.tubeCount ?? 16);
+    r.current?.setTubeCount(i.tubeCount ?? 16);
   }, [i.tubeCount]), Zt(() => {
-    var a;
-    (a = r.current) == null || a.setTubeGeometry({ maxSegments: i.tubeLength ?? 64, maxRadius: i.tubeRadius ?? 0.03 });
+    r.current?.setTubeGeometry({ maxSegments: i.tubeLength ?? 64, maxRadius: i.tubeRadius ?? 0.03 });
   }, [i.tubeLength, i.tubeRadius]), Zt(() => {
     t("randomizeTubeColors", () => {
       e("tubeColor1", Ct()), e("tubeColor2", Ct()), e("tubeColor3", Ct());
