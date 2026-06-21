@@ -22024,70 +22024,85 @@ function dm(i, e = {}) {
     }
   };
 }
-function Ct() {
-  return "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
+const pm = {
+  tubeCount: 16,
+  tubeRadius: 0.03,
+  tubeLength: 64,
+  metalness: 1,
+  roughness: 0.25,
+  smoothness: 0.85,
+  noise: 0.05,
+  tubeColor1: "#f967fb",
+  tubeColor2: "#ff6b6b",
+  tubeColor3: "#53bc28",
+  lightIntensity: 200,
+  lightColor1: "#83f36e",
+  lightColor2: "#fe8a2e",
+  lightColor3: "#ff008a",
+  lightColor4: "#60aed5",
+  bloomEnabled: !0,
+  bloomThreshold: 0,
+  bloomStrength: 0.7,
+  bloomRadius: 1.5
+}, mm = {
+  width: "100%",
+  height: "100%",
+  display: "block",
+  pointerEvents: "none"
+};
+function gm(i) {
+  return { ...pm, ...i };
 }
-function _m() {
-  const i = bl(), { setValue: e, onButtonClick: t } = Al(), n = Ar(null), r = Ar(null), s = Ar(i);
+function Ct() {
+  return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0")}`;
+}
+function Mm() {
+  const i = gm(bl()), { setValue: e, onButtonClick: t } = Al(), n = Ar(null), r = Ar(null), s = Ar(i);
   return s.current = i, Zt(() => {
     const a = n.current;
     if (!a) return;
     const o = s.current;
     return r.current = dm(a, {
       bloom: o.bloomEnabled ? {
-        threshold: o.bloomThreshold ?? 0,
-        strength: o.bloomStrength ?? 5,
-        radius: o.bloomRadius ?? 1.5
+        threshold: o.bloomThreshold,
+        strength: o.bloomStrength,
+        radius: o.bloomRadius
       } : null,
-      tubeCount: o.tubeCount ?? 16,
-      maxRadius: o.tubeRadius ?? 0.03,
-      maxSegments: o.tubeLength ?? 64,
-      metalness: o.metalness ?? 1,
-      roughness: o.roughness ?? 0.25,
-      colors: [o.tubeColor1 || "#f967fb", o.tubeColor2 || "#ff6b6b", o.tubeColor3 || "#53bc28"],
-      lightIntensity: o.lightIntensity ?? 200,
-      lightColors: [
-        o.lightColor1 || "#83f36e",
-        o.lightColor2 || "#fe8a2e",
-        o.lightColor3 || "#ff008a",
-        o.lightColor4 || "#60aed5"
-      ],
-      lerp: o.smoothness ?? 0.5,
-      noise: o.noise ?? 0.05
+      tubeCount: o.tubeCount,
+      maxRadius: o.tubeRadius,
+      maxSegments: o.tubeLength,
+      metalness: o.metalness,
+      roughness: o.roughness,
+      colors: [o.tubeColor1, o.tubeColor2, o.tubeColor3],
+      lightIntensity: o.lightIntensity,
+      lightColors: [o.lightColor1, o.lightColor2, o.lightColor3, o.lightColor4],
+      lerp: o.smoothness,
+      noise: o.noise
     }), () => {
       r.current?.dispose(), r.current = null;
     };
   }, []), Zt(() => {
-    r.current?.setTubeColors([
-      i.tubeColor1 || "#f967fb",
-      i.tubeColor2 || "#ff6b6b",
-      i.tubeColor3 || "#53bc28"
-    ]);
+    r.current?.setTubeColors([i.tubeColor1, i.tubeColor2, i.tubeColor3]);
   }, [i.tubeColor1, i.tubeColor2, i.tubeColor3]), Zt(() => {
     const a = r.current;
-    a && (a.setLightColors([
-      i.lightColor1 || "#83f36e",
-      i.lightColor2 || "#fe8a2e",
-      i.lightColor3 || "#ff008a",
-      i.lightColor4 || "#60aed5"
-    ]), a.setLightIntensity(i.lightIntensity ?? 200));
+    a && (a.setLightColors([i.lightColor1, i.lightColor2, i.lightColor3, i.lightColor4]), a.setLightIntensity(i.lightIntensity));
   }, [i.lightColor1, i.lightColor2, i.lightColor3, i.lightColor4, i.lightIntensity]), Zt(() => {
-    r.current?.setMaterial({ metalness: i.metalness ?? 1, roughness: i.roughness ?? 0.25 });
+    r.current?.setMaterial({ metalness: i.metalness, roughness: i.roughness });
   }, [i.metalness, i.roughness]), Zt(() => {
     const a = r.current;
-    a && (a.setLerp(i.smoothness ?? 0.85), a.setNoise(i.noise ?? 0.05));
+    a && (a.setLerp(i.smoothness), a.setNoise(i.noise));
   }, [i.smoothness, i.noise]), Zt(() => {
-    r.current?.setBloomEnabled(i.bloomEnabled ?? !0);
+    r.current?.setBloomEnabled(i.bloomEnabled);
   }, [i.bloomEnabled]), Zt(() => {
     r.current?.setBloomParams({
-      threshold: i.bloomThreshold ?? 0,
-      strength: i.bloomStrength ?? 0.7,
-      radius: i.bloomRadius ?? 1.5
+      threshold: i.bloomThreshold,
+      strength: i.bloomStrength,
+      radius: i.bloomRadius
     });
   }, [i.bloomThreshold, i.bloomStrength, i.bloomRadius]), Zt(() => {
-    r.current?.setTubeCount(i.tubeCount ?? 16);
+    r.current?.setTubeCount(i.tubeCount);
   }, [i.tubeCount]), Zt(() => {
-    r.current?.setTubeGeometry({ maxSegments: i.tubeLength ?? 64, maxRadius: i.tubeRadius ?? 0.03 });
+    r.current?.setTubeGeometry({ maxSegments: i.tubeLength, maxRadius: i.tubeRadius });
   }, [i.tubeLength, i.tubeRadius]), Zt(() => {
     t("randomizeTubeColors", () => {
       e("tubeColor1", Ct()), e("tubeColor2", Ct()), e("tubeColor3", Ct());
@@ -22096,8 +22111,8 @@ function _m() {
     }), t("randomizeAll", () => {
       e("tubeColor1", Ct()), e("tubeColor2", Ct()), e("tubeColor3", Ct()), e("lightColor1", Ct()), e("lightColor2", Ct()), e("lightColor3", Ct()), e("lightColor4", Ct());
     });
-  }, [t, e]), /* @__PURE__ */ Tl("canvas", { ref: n, style: { width: "100%", height: "100%", display: "block" } });
+  }, [t, e]), /* @__PURE__ */ Tl("canvas", { ref: n, style: mm });
 }
 export {
-  _m as default
+  Mm as default
 };

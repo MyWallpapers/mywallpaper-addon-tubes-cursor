@@ -1,0 +1,5 @@
+packages:
+  - .
+  - ../MyWallpaper/packages/contracts
+  - ../MyWallpaper/packages/sdk-react
+  - ../MyWallpaper/packages/vite-plugin
