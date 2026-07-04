@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "entry": "dist/widget.js",
+  "moduleUrl": "dist/widget.js",
+  "integrity": "sha256-52a04980629b3876502a4abab0959f44cdcda3f4ae49a1c710ddcc0117071b98",
+  "sizeBytes": 8465,
+  "runtimeContractVersion": "sdk-only-v1"
+}

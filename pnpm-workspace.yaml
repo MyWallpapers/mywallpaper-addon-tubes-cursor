@@ -1,5 +1,4 @@
 packages:
   - .
-  - ../MyWallpaper/packages/contracts
-  - ../MyWallpaper/packages/sdk-react
-  - ../MyWallpaper/packages/vite-plugin
+  - ../MyWallpaper/packages/addon-dev
+  - ../MyWallpaper/packages/runtime-kernel

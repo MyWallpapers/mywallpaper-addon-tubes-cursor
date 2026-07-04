@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { useSettings, useSettingsActions } from '@mywallpaper/sdk-react'
+import { useSettings, useSettingsActions } from '@mywallpaper/runtime-kernel/react'
 import { TubesCursor } from './tubes-engine.js'
 
 type TubesInstance = ReturnType<typeof TubesCursor>
