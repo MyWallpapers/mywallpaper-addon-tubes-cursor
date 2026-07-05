@@ -4,7 +4,8 @@ import { TubesCursor } from './tubes-engine.js'
 
 type TubesInstance = ReturnType<typeof TubesCursor>
 
-interface MyWallpaperApi {
+interface MyWallpaperLayerApi {
+  root: HTMLElement
   settings: {
     get(): Record<string, unknown>
     subscribe(listener: (settings: Record<string, unknown>) => void): () => void
@@ -13,6 +14,10 @@ interface MyWallpaperApi {
   actions: {
     on(key: string, listener: (event: unknown) => void): () => void
   }
+}
+
+interface MyWallpaperApi {
+  layer: MyWallpaperLayerApi
 }
 
 declare global {
@@ -65,6 +70,9 @@ const DEFAULTS: Settings = {
   bloomRadius: 1.5,
 }
 
+const layer = window.MyWallpaper?.layer
+const runtimeRoot = layer?.root ?? document.getElementById('root')
+
 const CANVAS_STYLE = {
   width: '100%',
   height: '100%',
@@ -72,14 +80,25 @@ const CANVAS_STYLE = {
   pointerEvents: 'none',
 } as const
 
-document.documentElement.style.width = '100%'
-document.documentElement.style.height = '100%'
-document.documentElement.style.margin = '0'
-document.body.style.width = '100%'
-document.body.style.height = '100%'
-document.body.style.margin = '0'
-document.body.style.overflow = 'hidden'
-document.body.style.background = 'transparent'
+if (runtimeRoot) {
+  runtimeRoot.classList.add('mwa-tubes-root')
+  runtimeRoot.style.width = '100%'
+  runtimeRoot.style.height = '100%'
+  runtimeRoot.style.margin = '0'
+  runtimeRoot.style.overflow = 'hidden'
+  runtimeRoot.style.background = 'transparent'
+}
+
+if (!layer) {
+  document.documentElement.style.width = '100%'
+  document.documentElement.style.height = '100%'
+  document.documentElement.style.margin = '0'
+  document.body.style.width = '100%'
+  document.body.style.height = '100%'
+  document.body.style.margin = '0'
+  document.body.style.overflow = 'hidden'
+  document.body.style.background = 'transparent'
+}
 
 function normalizeSettings(settings: Partial<Settings>): Settings {
   return { ...DEFAULTS, ...settings }
@@ -90,10 +109,10 @@ function randomHex() {
 }
 
 function useSettings<T>(): T {
-  const [settings, setSettings] = useState<T>(() => (window.MyWallpaper?.settings.get() ?? {}) as T)
+  const [settings, setSettings] = useState<T>(() => (layer?.settings.get() ?? {}) as T)
 
   useEffect(() => {
-    return window.MyWallpaper?.settings.subscribe((next) => setSettings(next as T)) ?? (() => {})
+    return layer?.settings.subscribe((next) => setSettings(next as T)) ?? (() => {})
   }, [])
 
   return settings
@@ -101,11 +120,11 @@ function useSettings<T>(): T {
 
 function useSettingsActions() {
   const setValues = useCallback((values: Record<string, unknown>) => {
-    window.MyWallpaper?.settings.set(values)
+    layer?.settings.set(values)
   }, [])
 
   const onButtonClick = useCallback((key: string, handler: (event: unknown) => void) => {
-    return window.MyWallpaper?.actions.on(key, handler) ?? (() => {})
+    return layer?.actions.on(key, handler) ?? (() => {})
   }, [])
 
   return { setValues, onButtonClick }
@@ -229,7 +248,6 @@ export default function TubesCursorWidget() {
   return <canvas ref={canvasRef} style={CANVAS_STYLE} />
 }
 
-const root = document.getElementById('root')
-if (root) {
-  createRoot(root).render(<TubesCursorWidget />)
+if (runtimeRoot) {
+  createRoot(runtimeRoot).render(<TubesCursorWidget />)
 }

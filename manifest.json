@@ -1,7 +1,7 @@
 {
   "name": "Tubes Cursor",
-  "version": "5.1.0",
-  "runtime": "trusted-browser-v1",
+  "version": "5.2.0",
+  "runtime": "trusted-native-canvas-v1",
   "entry": "dist/index.html",
   "description": "Interactive 3D tubes that follow the cursor with colorful lights and glow effect",
   "author": "MyWallpaper Community",
