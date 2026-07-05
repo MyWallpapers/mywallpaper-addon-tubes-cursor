@@ -1,11 +1,11 @@
 {
   "name": "Tubes Cursor",
-  "version": "4.2.5",
-  "entry": "dist/widget.js",
-  "runtimeVersion": 2,
+  "version": "5.0.0",
+  "runtime": "trusted-browser-v1",
+  "entry": "dist/index.html",
   "description": "Interactive 3D tubes that follow the cursor with colorful lights and glow effect",
   "author": "MyWallpaper Community",
-  "type": "widget",
+  "type": "addon",
   "license": "MIT",
   "categories": [
     "cursor",

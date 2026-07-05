@@ -1,8 +1,25 @@
-import { useEffect, useRef } from 'react'
-import { useSettings, useSettingsActions } from '@mywallpaper/runtime-kernel/react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { createRoot } from 'react-dom/client'
 import { TubesCursor } from './tubes-engine.js'
 
 type TubesInstance = ReturnType<typeof TubesCursor>
+
+interface MyWallpaperApi {
+  settings: {
+    get(): Record<string, unknown>
+    subscribe(listener: (settings: Record<string, unknown>) => void): () => void
+    set(partial: Record<string, unknown>): void
+  }
+  actions: {
+    on(key: string, listener: (event: unknown) => void): () => void
+  }
+}
+
+declare global {
+  interface Window {
+    MyWallpaper?: MyWallpaperApi
+  }
+}
 
 interface Settings {
   tubeCount: number
@@ -55,6 +72,15 @@ const CANVAS_STYLE = {
   pointerEvents: 'none',
 } as const
 
+document.documentElement.style.width = '100%'
+document.documentElement.style.height = '100%'
+document.documentElement.style.margin = '0'
+document.body.style.width = '100%'
+document.body.style.height = '100%'
+document.body.style.margin = '0'
+document.body.style.overflow = 'hidden'
+document.body.style.background = 'transparent'
+
 function normalizeSettings(settings: Partial<Settings>): Settings {
   return { ...DEFAULTS, ...settings }
 }
@@ -63,9 +89,31 @@ function randomHex() {
   return `#${Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0')}`
 }
 
+function useSettings<T>(): T {
+  const [settings, setSettings] = useState<T>(() => (window.MyWallpaper?.settings.get() ?? {}) as T)
+
+  useEffect(() => {
+    return window.MyWallpaper?.settings.subscribe((next) => setSettings(next as T)) ?? (() => {})
+  }, [])
+
+  return settings
+}
+
+function useSettingsActions() {
+  const setValues = useCallback((values: Record<string, unknown>) => {
+    window.MyWallpaper?.settings.set(values)
+  }, [])
+
+  const onButtonClick = useCallback((key: string, handler: (event: unknown) => void) => {
+    return window.MyWallpaper?.actions.on(key, handler) ?? (() => {})
+  }, [])
+
+  return { setValues, onButtonClick }
+}
+
 export default function TubesCursorWidget() {
   const settings = normalizeSettings(useSettings<Partial<Settings>>())
-  const { setValue, onButtonClick } = useSettingsActions()
+  const { setValues, onButtonClick } = useSettingsActions()
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const instanceRef = useRef<TubesInstance | null>(null)
   const settingsRef = useRef(settings)
@@ -145,27 +193,43 @@ export default function TubesCursorWidget() {
   }, [settings.tubeLength, settings.tubeRadius])
 
   useEffect(() => {
-    onButtonClick('randomizeTubeColors', () => {
-      setValue('tubeColor1', randomHex())
-      setValue('tubeColor2', randomHex())
-      setValue('tubeColor3', randomHex())
+    const unsubscribeTubeColors = onButtonClick('randomizeTubeColors', () => {
+      setValues({
+        tubeColor1: randomHex(),
+        tubeColor2: randomHex(),
+        tubeColor3: randomHex(),
+      })
     })
-    onButtonClick('randomizeLightColors', () => {
-      setValue('lightColor1', randomHex())
-      setValue('lightColor2', randomHex())
-      setValue('lightColor3', randomHex())
-      setValue('lightColor4', randomHex())
+    const unsubscribeLightColors = onButtonClick('randomizeLightColors', () => {
+      setValues({
+        lightColor1: randomHex(),
+        lightColor2: randomHex(),
+        lightColor3: randomHex(),
+        lightColor4: randomHex(),
+      })
     })
-    onButtonClick('randomizeAll', () => {
-      setValue('tubeColor1', randomHex())
-      setValue('tubeColor2', randomHex())
-      setValue('tubeColor3', randomHex())
-      setValue('lightColor1', randomHex())
-      setValue('lightColor2', randomHex())
-      setValue('lightColor3', randomHex())
-      setValue('lightColor4', randomHex())
+    const unsubscribeAll = onButtonClick('randomizeAll', () => {
+      setValues({
+        tubeColor1: randomHex(),
+        tubeColor2: randomHex(),
+        tubeColor3: randomHex(),
+        lightColor1: randomHex(),
+        lightColor2: randomHex(),
+        lightColor3: randomHex(),
+        lightColor4: randomHex(),
+      })
     })
-  }, [onButtonClick, setValue])
+    return () => {
+      unsubscribeTubeColors()
+      unsubscribeLightColors()
+      unsubscribeAll()
+    }
+  }, [onButtonClick, setValues])
 
   return <canvas ref={canvasRef} style={CANVAS_STYLE} />
+}
+
+const root = document.getElementById('root')
+if (root) {
+  createRoot(root).render(<TubesCursorWidget />)
 }
