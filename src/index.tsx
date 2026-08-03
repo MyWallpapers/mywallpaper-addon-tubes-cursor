@@ -1,30 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
+import type { CanvasAddonMountContext, JsonValue } from '../generated/mywallpaper-runtime'
 import { TubesCursor } from './tubes-engine.js'
 
 type TubesInstance = ReturnType<typeof TubesCursor>
-
-interface MyWallpaperLayerApi {
-  root: HTMLElement
-  settings: {
-    get(): Record<string, unknown>
-    subscribe(listener: (settings: Record<string, unknown>) => void): () => void
-    set(partial: Record<string, unknown>): void
-  }
-  actions: {
-    on(key: string, listener: (event: unknown) => void): () => void
-  }
-}
-
-interface MyWallpaperApi {
-  layer: MyWallpaperLayerApi
-}
-
-declare global {
-  interface Window {
-    MyWallpaper?: MyWallpaperApi
-  }
-}
 
 interface Settings {
   tubeCount: number
@@ -70,35 +49,12 @@ const DEFAULTS: Settings = {
   bloomRadius: 1.5,
 }
 
-const layer = window.MyWallpaper?.layer
-const runtimeRoot = layer?.root ?? document.getElementById('root')
-
 const CANVAS_STYLE = {
   width: '100%',
   height: '100%',
   display: 'block',
   pointerEvents: 'none',
 } as const
-
-if (runtimeRoot) {
-  runtimeRoot.classList.add('mwa-tubes-root')
-  runtimeRoot.style.width = '100%'
-  runtimeRoot.style.height = '100%'
-  runtimeRoot.style.margin = '0'
-  runtimeRoot.style.overflow = 'hidden'
-  runtimeRoot.style.background = 'transparent'
-}
-
-if (!layer) {
-  document.documentElement.style.width = '100%'
-  document.documentElement.style.height = '100%'
-  document.documentElement.style.margin = '0'
-  document.body.style.width = '100%'
-  document.body.style.height = '100%'
-  document.body.style.margin = '0'
-  document.body.style.overflow = 'hidden'
-  document.body.style.background = 'transparent'
-}
 
 function normalizeSettings(settings: Partial<Settings>): Settings {
   return { ...DEFAULTS, ...settings }
@@ -108,31 +64,31 @@ function randomHex() {
   return `#${Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0')}`
 }
 
-function useSettings<T>(): T {
-  const [settings, setSettings] = useState<T>(() => (layer?.settings.get() ?? {}) as T)
+function useSettings<T>(layer: CanvasAddonMountContext['layer']): T {
+  const [settings, setSettings] = useState<T>(() => layer.settings.get() as T)
 
   useEffect(() => {
-    return layer?.settings.subscribe((next) => setSettings(next as T)) ?? (() => {})
-  }, [])
+    return layer.settings.subscribe((next) => setSettings(next as T))
+  }, [layer])
 
   return settings
 }
 
-function useSettingsActions() {
-  const setValues = useCallback((values: Record<string, unknown>) => {
-    layer?.settings.set(values)
-  }, [])
+function useSettingsActions(layer: CanvasAddonMountContext['layer']) {
+  const setValues = useCallback((values: Record<string, JsonValue>) => {
+    void layer.settings.set(values)
+  }, [layer])
 
   const onButtonClick = useCallback((key: string, handler: (event: unknown) => void) => {
-    return layer?.actions.on(key, handler) ?? (() => {})
-  }, [])
+    return layer.actions.on(key, handler)
+  }, [layer])
 
   return { setValues, onButtonClick }
 }
 
-export default function TubesCursorWidget() {
-  const settings = normalizeSettings(useSettings<Partial<Settings>>())
-  const { setValues, onButtonClick } = useSettingsActions()
+export default function TubesCursorWidget({ layer }: { layer: CanvasAddonMountContext['layer'] }) {
+  const settings = normalizeSettings(useSettings<Partial<Settings>>(layer))
+  const { setValues, onButtonClick } = useSettingsActions(layer)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const instanceRef = useRef<TubesInstance | null>(null)
   const settingsRef = useRef(settings)
@@ -248,6 +204,20 @@ export default function TubesCursorWidget() {
   return <canvas ref={canvasRef} style={CANVAS_STYLE} />
 }
 
-if (runtimeRoot) {
-  createRoot(runtimeRoot).render(<TubesCursorWidget />)
+export function mount({ layer }: CanvasAddonMountContext): () => void {
+  layer.root.classList.add('mwa-tubes-root')
+  Object.assign(layer.root.style, {
+    width: '100%',
+    height: '100%',
+    margin: '0',
+    overflow: 'hidden',
+    background: 'transparent',
+  })
+  const root = createRoot(layer.root)
+  root.render(<TubesCursorWidget layer={layer} />)
+  return () => {
+    root.unmount()
+    layer.root.classList.remove('mwa-tubes-root')
+    layer.root.removeAttribute('style')
+  }
 }

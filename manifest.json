@@ -1,260 +1,267 @@
 {
+  "runtime": "canvas-v1",
   "name": "Tubes Cursor",
-  "version": "5.2.0",
-  "runtime": "trusted-native-canvas-v1",
+  "description": "Renders a customizable field of glowing 3D tubes that follows the pointer across the shared wallpaper Canvas.",
+  "version": "6.0.0",
   "entry": "dist/index.html",
-  "description": "Interactive 3D tubes that follow the cursor with colorful lights and glow effect",
-  "author": "MyWallpaper Community",
-  "type": "addon",
-  "license": "MIT",
-  "categories": [
-    "cursor",
-    "3d",
-    "interactive"
-  ],
-  "settings": {
-    "tubesSection": {
-      "type": "section",
-      "content": {
-        "label": "🎨 Tubes"
-      }
-    },
-    "tubeCount": {
-      "type": "range",
-      "content": {
-        "label": "Number of Tubes",
-        "default": 16,
-        "min": 1,
-        "max": 32,
-        "step": 1
-      }
-    },
-    "tubeRadius": {
-      "type": "range",
-      "content": {
-        "label": "Tube Thickness",
-        "description": "Radius of all tubes",
-        "default": 0.03,
-        "min": 0.005,
-        "max": 0.15,
-        "step": 0.005
-      }
-    },
-    "tubeLength": {
-      "type": "range",
-      "content": {
-        "label": "Tube Length",
-        "description": "Number of segments (longer = more trail)",
-        "default": 64,
-        "min": 1,
-        "max": 256,
-        "step": 1
-      }
-    },
-    "materialSection": {
-      "type": "section",
-      "content": {
-        "label": "✨ Material"
-      }
-    },
-    "metalness": {
-      "type": "range",
-      "content": {
-        "label": "Metalness",
-        "default": 1,
-        "min": 0,
-        "max": 1,
-        "step": 0.05
-      }
-    },
-    "roughness": {
-      "type": "range",
-      "content": {
-        "label": "Roughness",
-        "default": 0.25,
-        "min": 0,
-        "max": 1,
-        "step": 0.05
-      }
-    },
-    "animationSection": {
-      "type": "section",
-      "content": {
-        "label": "🌊 Animation"
-      }
-    },
-    "smoothness": {
-      "type": "range",
-      "content": {
-        "label": "Smoothness",
-        "description": "How quickly tubes follow the cursor",
-        "default": 0.85,
-        "min": 0.05,
-        "max": 1,
-        "step": 0.05
-      }
-    },
-    "noise": {
-      "type": "range",
-      "content": {
-        "label": "Noise",
-        "description": "Organic movement intensity",
-        "default": 0.05,
-        "min": 0,
-        "max": 0.3,
-        "step": 0.01
-      }
-    },
-    "tubeColorsSection": {
-      "type": "section",
-      "content": {
-        "label": "🎨 Tube Colors (Gradient)"
-      }
-    },
-    "tubeColor1": {
-      "type": "color",
-      "content": {
-        "label": "Color 1",
-        "default": "#f967fb"
-      }
-    },
-    "tubeColor2": {
-      "type": "color",
-      "content": {
-        "label": "Color 2",
-        "default": "#ff6b6b"
-      }
-    },
-    "tubeColor3": {
-      "type": "color",
-      "content": {
-        "label": "Color 3",
-        "default": "#53bc28"
-      }
-    },
-    "randomizeTubeColors": {
-      "type": "button",
-      "content": {
-        "label": "Actions",
-        "buttonLabel": "🎲 Randomize Tube Colors"
-      }
-    },
-    "lightColorsSection": {
-      "type": "section",
-      "content": {
-        "label": "💡 Lights"
-      }
-    },
-    "lightIntensity": {
-      "type": "range",
-      "content": {
-        "label": "Light Intensity",
-        "default": 200,
-        "min": 0,
-        "max": 500,
-        "step": 10
-      }
-    },
-    "lightColor1": {
-      "type": "color",
-      "content": {
-        "label": "Light 1 (Bottom-Left)",
-        "default": "#83f36e"
-      }
-    },
-    "lightColor2": {
-      "type": "color",
-      "content": {
-        "label": "Light 2 (Top-Left)",
-        "default": "#fe8a2e"
-      }
-    },
-    "lightColor3": {
-      "type": "color",
-      "content": {
-        "label": "Light 3 (Bottom-Right)",
-        "default": "#ff008a"
-      }
-    },
-    "lightColor4": {
-      "type": "color",
-      "content": {
-        "label": "Light 4 (Top-Right)",
-        "default": "#60aed5"
-      }
-    },
-    "randomizeLightColors": {
-      "type": "button",
-      "content": {
-        "label": "Actions",
-        "buttonLabel": "🎲 Randomize Light Colors"
-      }
-    },
-    "bloomSection": {
-      "type": "section",
-      "content": {
-        "label": "🌟 Bloom Effect"
-      }
-    },
-    "bloomEnabled": {
-      "type": "boolean",
-      "content": {
-        "label": "Enable Bloom",
-        "default": true
-      }
-    },
-    "bloomThreshold": {
-      "type": "range",
-      "content": {
-        "label": "Threshold",
-        "default": 0,
-        "min": 0,
-        "max": 1,
-        "step": 0.05
-      }
-    },
-    "bloomStrength": {
-      "type": "range",
-      "content": {
-        "label": "Strength",
-        "default": 0.7,
-        "min": 0,
-        "max": 10,
-        "step": 0.1
-      }
-    },
-    "bloomRadius": {
-      "type": "range",
-      "content": {
-        "label": "Radius",
-        "default": 1.5,
-        "min": 0,
-        "max": 3,
-        "step": 0.1
-      }
-    },
-    "actionsSection": {
-      "type": "section",
-      "content": {
-        "label": "⚡ Quick Actions"
-      }
-    },
-    "randomizeAll": {
-      "type": "button",
-      "content": {
-        "label": "Randomize",
-        "buttonLabel": "🎲 Randomize All Colors"
-      }
-    }
-  },
-  "defaultLayout": {
-    "xPercent": 0,
-    "yPercent": 0,
-    "widthPercent": 100,
-    "heightPercent": 100
-  },
+  "thumbnail": "preview.png",
+  "deviceSettingsVersion": "1",
   "ui": {
     "pointerEvents": "none"
   },
-  "repository": "https://github.com/MyWallpapers/mywallpaper-addon-tubes-cursor"
+  "settings": [
+    {
+      "id": "geometry",
+      "type": "section",
+      "label": "Geometry"
+    },
+    {
+      "id": "tubeCount",
+      "type": "range",
+      "label": "Tube count",
+      "parent": "geometry",
+      "scope": "layer",
+      "default": 16,
+      "min": 1,
+      "max": 32,
+      "step": 1
+    },
+    {
+      "id": "tubeRadius",
+      "type": "range",
+      "label": "Tube thickness",
+      "parent": "geometry",
+      "scope": "layer",
+      "default": 0.03,
+      "min": 0.005,
+      "max": 0.15,
+      "step": 0.005
+    },
+    {
+      "id": "tubeLength",
+      "type": "range",
+      "label": "Trail length",
+      "parent": "geometry",
+      "scope": "layer",
+      "default": 64,
+      "min": 1,
+      "max": 256,
+      "step": 1
+    },
+    {
+      "id": "material",
+      "type": "section",
+      "label": "Material"
+    },
+    {
+      "id": "metalness",
+      "type": "range",
+      "label": "Metalness",
+      "parent": "material",
+      "scope": "layer",
+      "default": 1,
+      "min": 0,
+      "max": 1,
+      "step": 0.05
+    },
+    {
+      "id": "roughness",
+      "type": "range",
+      "label": "Roughness",
+      "parent": "material",
+      "scope": "layer",
+      "default": 0.25,
+      "min": 0,
+      "max": 1,
+      "step": 0.05
+    },
+    {
+      "id": "motion",
+      "type": "section",
+      "label": "Motion"
+    },
+    {
+      "id": "smoothness",
+      "type": "range",
+      "label": "Follow smoothness",
+      "parent": "motion",
+      "scope": "layer",
+      "default": 0.85,
+      "min": 0.05,
+      "max": 1,
+      "step": 0.05
+    },
+    {
+      "id": "noise",
+      "type": "range",
+      "label": "Organic movement",
+      "parent": "motion",
+      "scope": "layer",
+      "default": 0.05,
+      "min": 0,
+      "max": 0.3,
+      "step": 0.01
+    },
+    {
+      "id": "colors",
+      "type": "section",
+      "label": "Colors"
+    },
+    {
+      "id": "tubeColors",
+      "type": "section",
+      "label": "Tube gradient",
+      "parent": "colors"
+    },
+    {
+      "id": "tubeColor1",
+      "type": "color",
+      "label": "First color",
+      "parent": "tubeColors",
+      "scope": "layer",
+      "default": "#f967fb"
+    },
+    {
+      "id": "tubeColor2",
+      "type": "color",
+      "label": "Second color",
+      "parent": "tubeColors",
+      "scope": "layer",
+      "default": "#ff6b6b"
+    },
+    {
+      "id": "tubeColor3",
+      "type": "color",
+      "label": "Third color",
+      "parent": "tubeColors",
+      "scope": "layer",
+      "default": "#53bc28"
+    },
+    {
+      "id": "randomizeTubeColors",
+      "type": "button",
+      "label": "Tube colors",
+      "parent": "tubeColors",
+      "buttonLabel": "Randomize tube colors"
+    },
+    {
+      "id": "lights",
+      "type": "section",
+      "label": "Lights",
+      "parent": "colors",
+      "defaultCollapsed": true
+    },
+    {
+      "id": "lightIntensity",
+      "type": "range",
+      "label": "Intensity",
+      "parent": "lights",
+      "scope": "layer",
+      "default": 200,
+      "min": 0,
+      "max": 500,
+      "step": 10
+    },
+    {
+      "id": "lightColor1",
+      "type": "color",
+      "label": "Bottom left",
+      "parent": "lights",
+      "scope": "layer",
+      "default": "#83f36e"
+    },
+    {
+      "id": "lightColor2",
+      "type": "color",
+      "label": "Top left",
+      "parent": "lights",
+      "scope": "layer",
+      "default": "#fe8a2e"
+    },
+    {
+      "id": "lightColor3",
+      "type": "color",
+      "label": "Bottom right",
+      "parent": "lights",
+      "scope": "layer",
+      "default": "#ff008a"
+    },
+    {
+      "id": "lightColor4",
+      "type": "color",
+      "label": "Top right",
+      "parent": "lights",
+      "scope": "layer",
+      "default": "#60aed5"
+    },
+    {
+      "id": "randomizeLightColors",
+      "type": "button",
+      "label": "Light colors",
+      "parent": "lights",
+      "buttonLabel": "Randomize light colors"
+    },
+    {
+      "id": "bloom",
+      "type": "section",
+      "label": "Bloom"
+    },
+    {
+      "id": "bloomEnabled",
+      "type": "boolean",
+      "label": "Enable bloom",
+      "parent": "bloom",
+      "scope": "layer",
+      "default": true
+    },
+    {
+      "id": "bloomThreshold",
+      "type": "range",
+      "label": "Threshold",
+      "parent": "bloom",
+      "scope": "layer",
+      "default": 0,
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "showIf": { "setting": "bloomEnabled", "equals": true }
+    },
+    {
+      "id": "bloomStrength",
+      "type": "range",
+      "label": "Strength",
+      "parent": "bloom",
+      "scope": "layer",
+      "default": 0.7,
+      "min": 0,
+      "max": 10,
+      "step": 0.1,
+      "showIf": { "setting": "bloomEnabled", "equals": true }
+    },
+    {
+      "id": "bloomRadius",
+      "type": "range",
+      "label": "Radius",
+      "parent": "bloom",
+      "scope": "layer",
+      "default": 1.5,
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "showIf": { "setting": "bloomEnabled", "equals": true }
+    },
+    {
+      "id": "actions",
+      "type": "section",
+      "label": "Actions",
+      "defaultCollapsed": true
+    },
+    {
+      "id": "randomizeAll",
+      "type": "button",
+      "label": "All colors",
+      "parent": "actions",
+      "buttonLabel": "Randomize all colors"
+    }
+  ]
 }
