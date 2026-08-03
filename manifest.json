@@ -4,7 +4,7 @@
   "description": "Renders a customizable field of glowing 3D tubes that follows the pointer across the shared wallpaper Canvas.",
   "version": "6.0.0",
   "entry": "dist/index.html",
-  "thumbnail": "preview.png",
+  "thumbnail": "assets/thumbnail.png",
   "deviceSettingsVersion": "1",
   "ui": {
     "pointerEvents": "none"
