@@ -2,8 +2,8 @@
   "runtime": "canvas-v1",
   "name": "Tubes Cursor",
   "description": "Renders a customizable field of glowing 3D tubes that follows the pointer across the shared wallpaper Canvas.",
-  "version": "6.0.1",
-  "entry": "dist/index.html",
+  "version": "6.0.2",
+  "entry": "dist/assets/addon.js",
   "thumbnail": "assets/thumbnail.png",
   "deviceSettingsVersion": "1",
   "ui": {
