@@ -2,7 +2,7 @@
   "runtime": "canvas-v1",
   "name": "Tubes Cursor",
   "description": "Renders a customizable field of glowing 3D tubes that follows the pointer across the shared wallpaper Canvas.",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "entry": "dist/assets/addon.js",
   "thumbnail": "assets/thumbnail.png",
   "deviceSettingsVersion": "1",
@@ -224,7 +224,10 @@
       "min": 0,
       "max": 1,
       "step": 0.05,
-      "showIf": { "setting": "bloomEnabled", "equals": true }
+      "showIf": {
+        "setting": "bloomEnabled",
+        "equals": true
+      }
     },
     {
       "id": "bloomStrength",
@@ -236,7 +239,10 @@
       "min": 0,
       "max": 10,
       "step": 0.1,
-      "showIf": { "setting": "bloomEnabled", "equals": true }
+      "showIf": {
+        "setting": "bloomEnabled",
+        "equals": true
+      }
     },
     {
       "id": "bloomRadius",
@@ -248,7 +254,10 @@
       "min": 0,
       "max": 3,
       "step": 0.1,
-      "showIf": { "setting": "bloomEnabled", "equals": true }
+      "showIf": {
+        "setting": "bloomEnabled",
+        "equals": true
+      }
     },
     {
       "id": "actions",
