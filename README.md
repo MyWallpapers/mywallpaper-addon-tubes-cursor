@@ -5,6 +5,10 @@ of glowing 3D tubes following the pointer across the shared wallpaper Canvas.
 It is a Canvas effect: it does not replace the native Windows cursor and does
 not inject code into another process.
 
+The manifest enables pointer input for this effect. Each add-on runs in its own
+execution document, so its mouse listener needs input delivered to that document.
+The canvas itself stays non-interactive; the document receives the movement.
+
 ## Development
 
 Use Node.js 24 and the pnpm version pinned by `packageManager`:
