@@ -18,6 +18,57 @@ export type ResourceValue = {
 	url: string;
 };
 export type AddonValues = Record<string, JsonValue>;
+interface ServiceCaller {
+	/** Host-stamped identity. Never taken from the calling add-on's payload. */
+	nodeId: string;
+	addonId: string;
+	addonReleaseId?: string;
+	generation: string;
+}
+interface ServiceCallContext {
+	caller: ServiceCaller;
+	signal: AbortSignal;
+}
+interface ServiceCallOptions {
+	signal?: AbortSignal;
+	timeoutMs?: number;
+}
+interface ServiceEvent {
+	kind: "snapshot" | "state" | "event";
+	sequence: number;
+	value: JsonValue;
+}
+export interface ServiceImplementation {
+	methods?: Record<string, (input: JsonValue, context: ServiceCallContext) => JsonValue | Promise<JsonValue>>;
+	streams?: Record<string, (input: JsonValue, context: ServiceCallContext) => AsyncIterable<ArrayBuffer>>;
+}
+interface ServicePublisher {
+	/** Replaces a retained snapshot and notifies subscribers atomically. */
+	publish(topic: string, value: JsonValue): void;
+	emit(topic: string, value: JsonValue): void;
+	dispose(): void;
+}
+export interface ServiceConnection {
+	call(method: string, input?: JsonValue, options?: ServiceCallOptions): Promise<JsonValue>;
+	/** The first retained value and subsequent updates share one ordered port. */
+	subscribe(topic: string, listener: (event: ServiceEvent) => void, onError?: (error: Error) => void): () => void;
+	stream(name: string, input?: JsonValue, options?: ServiceCallOptions): AsyncIterable<ArrayBuffer>;
+	close(): void;
+}
+export interface AddonServiceApi {
+	connect(alias: string, options?: ServiceCallOptions): Promise<ServiceConnection>;
+	provide(name: string, implementation: ServiceImplementation): ServicePublisher;
+}
+export interface ServiceWorkerContext {
+	services: AddonServiceApi;
+	/** The worker owns device-scoped values; visual layer values remain local. */
+	settings: {
+		get(): Record<string, JsonValue>;
+		subscribe(listener: (values: Record<string, JsonValue>) => void): () => void;
+	};
+	native: CanvasLayerApi["native"];
+	signal: AbortSignal;
+}
 export type CanvasApiListener<TValue = unknown> = (value: TValue) => void;
 export type NativeConnectionState = "open" | "reconnecting" | "failed" | "closed";
 export interface NativeConnection {
@@ -83,7 +134,7 @@ export interface CanvasRuntimeApi {
 	readonly instance: RuntimeInstance;
 }
 export interface CanvasLayerApi {
-	/** Stable container owned by this layer instance inside the shared Canvas document. */
+	/** Stable container owned by this layer instance inside its execution domain. */
 	readonly root: HTMLElement;
 	readonly layerId: string;
 	readonly settings: LayerSettingsApi;
@@ -101,6 +152,7 @@ export interface CanvasAddonMountContext {
 	readonly layer: CanvasLayerApi;
 	/** Exact alias of `layer.bus`, provided for the concise public bus API. */
 	readonly bus: CanvasBus;
+	readonly services: AddonServiceApi;
 }
 export type CanvasAddonCleanup = () => void;
 export type CanvasAddonMount = (context: CanvasAddonMountContext) => void | CanvasAddonCleanup;
