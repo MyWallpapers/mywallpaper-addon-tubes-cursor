@@ -33,8 +33,8 @@ branch, wait for quality checks, then push a new immutable `v<version>` tag.
 With a signed-in, eligible creator account, request publication from the CLI:
 
 ```sh
-mywallpaper publish --addon <ADDON_ID> --tag v6.0.6 --dry-run --json
-mywallpaper publish --addon <ADDON_ID> --tag v6.0.6 --wait --json
+mywallpaper publish --addon <ADDON_ID> --tag v6.0.7 --dry-run --json
+mywallpaper publish --addon <ADDON_ID> --tag v6.0.7 --wait --json
 ```
 
 The creator MCP exposes the same operation through `mywallpaper_addon_publish`:
