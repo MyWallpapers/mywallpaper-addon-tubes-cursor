@@ -30,8 +30,20 @@ organized into Geometry, Material, Motion, Lighting, Bloom, and Actions groups.
 
 Merge the source and matching manifest/package version into the reviewed default
 branch, wait for quality checks, then push a new immutable `v<version>` tag.
-Open this add-on's management page in MyWallpaper and select that tag to request
-publication with an active lifetime entitlement.
+With a signed-in, eligible creator account, request publication from the CLI:
+
+```sh
+mywallpaper publish --addon <ADDON_ID> --tag v6.0.6 --dry-run --json
+mywallpaper publish --addon <ADDON_ID> --tag v6.0.6 --wait --json
+```
+
+The creator MCP exposes the same operation through `mywallpaper_addon_publish`:
+provide the project directory, registered add-on ID and tag, first with
+`dryRun: true`, then with `dryRun: false` after reviewing the result. Keep the
+returned publication ID and use `mywallpaper_publication_status` to resume
+observation; only `available` confirms catalogue availability. The service
+enforces current creator terms, account rights and quotas. Repository creation,
+source commits and tag pushes use the creator's ordinary Git tools.
 
 MyWallpaper resolves the exact public repository and commit, dispatches its
 pinned central workflow, rebuilds and verifies the artifacts, and publishes the
